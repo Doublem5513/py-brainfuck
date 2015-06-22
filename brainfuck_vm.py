@@ -1,15 +1,14 @@
 from time import sleep
+from datetime import datetime
 
 #Simple brainfuck interpreter
 def load_program(file_name):
     infile = open(file_name, 'r')
-    program_str = ""
-    for line in infile:
-        program_str = program_str + line
     program = []
-    for c in program_str:
-        if c in ['<','>','-','+','[',']',',','.']:
-            program.append(c)
+    for line in infile:    
+        for c in line:
+            if c in ['<','>','-','+','[',']',',','.']:
+                program.append(c)
     return program
 
 class brainfuck_vm:
@@ -61,6 +60,8 @@ class brainfuck_vm:
 prog = load_program("programs/hello.bf")
 print(prog)
 
+start = datetime.now()
+print(start)
 vm = brainfuck_vm(prog)
 while True:
     #vm.dumpState()
@@ -69,3 +70,5 @@ while True:
         break
 
 print("\nProgram ended")
+end = datetime.now()
+print("Duration: ", end - start)
